@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Bootstrap, from Twitter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="http://cdn.bootcss.com/bootstrap/2.0.4/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://cdn.bootcss.com/bootstrap/2.0.4/css/bootstrap-responsive.min.css" rel="stylesheet">
+    
+    
+
+    
+
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+      .sidebar-nav {
+        padding: 9px 0;
+      }
+
+      @media (max-width: 980px) {
+        /* Enable use of floated navbar text */
+        .navbar-text.pull-right {
+          float: none;
+          padding-left: 5px;
+          padding-right: 5px;
+        }
+      }
+    </style>
+
+   
+
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../assets/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    
+  </head>
+
+  <body>
+    
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="#">BTC</a>
+          <div class="nav-collapse collapse">
+            <p class="navbar-text pull-right">
+              Logged in as <a href="#" class="navbar-link">{{ request.user.username }}</a>
+            </p>
+            <ul class="nav">
+              <li class="active"><a href="#">Home</a></li>
+              <li><a href="{% url 'signout' %}">Signout</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span3">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class="nav-header">Sidebar</li>
+             <li><a href="{% url 'signin' %}">Signin</a></li>
+              <li ><a href="{% url 'ltcsetting' %}">LTC利差</a></li>
+              <li ><a href="{% url 'btcsetting' %}">BTC利差</a></li>
+              <li ><a href="{% url 'setting' %}">API及汇率设置</a></li>
+              <li class="active"><a href="{% url 'show' %}">Show</a></li>
+              <li><a href="{% url 'showmacd' %}">ShowMacd</a></li>
+              <li><a href="{% url 'trade' %}">Trade</a></li>
+              <li><a href="{% url 'traderecode' %}">btc交易记录</a></li>
+              <li><a href="{% url 'traderecodeltc' %}">ltc交易记录</a></li>
+            </ul>
+          </div><!--/.well -->
+        </div><!--/span-->
+        <div class="span9">
+
+          <div id="mychart" ></div>
+          <div id="mychart_ltc" ></div>
+        </div><!--/span-->
+      </div><!--/row-->
+
+      <hr>
+
+      <footer>
+        <p>&copy; Company 2013</p>
+      </footer>
+
+    </div><!--/.fluid-container-->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+     <script src="http://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+     <script src="http://cdn.bootcss.com/bootstrap/2.0.4/js/bootstrap.min.js"></script>
+     <script src="http://cdn.bootcss.com/highcharts/4.0.1/highcharts.js"></script>
+     <!-- <script type="text/javascript" src="{{ STATIC_URL }}hc.js"></script>-->
+     <script type="text/javascript">
+          $(function () {
+            Highcharts.setOptions({
+                global: {
+                    useUTC: false //开启UTC
+                }
+            });
+
+            var chart = new Highcharts.Chart({
+                chart: {
+                    type: 'line',
+                    renderTo: 'mychart'
+                },
+                title: {
+                    text: 'btc价格变动情况'
+                },
+                subtitle: {
+                    text: '副标题不知道写啥了:)'
+                },
+                xAxis: {
+                    type: 'datetime',
+                    title: {
+                        text: '时间轴'
+                    }
+                },
+                yAxis: {
+                    title: {
+                        text: '价格 (美元)'
+                    },
+                    
+                },
+                tooltip: {
+                    headerFormat: '<b>{series.name}</b><br>',
+
+                    pointFormat: '{point.x:%Y-%m-%e %H:%M : %S}: {point.y} 美元 <br>{point.extra}'
+                },
+
+                series: [{
+                    name: 'okcoin买价',
+                    // Define the data points. All series have a dummy year
+                    // of 1970/71 in order to be compared on the same x axis. Note
+                    // that in JavaScript, months start at 0 for January, 1 for February etc.
+                    
+                }, 
+                {
+                    name: 'huobi买价',
+                    // Define the data points. All series have a dummy year
+                    // of 1970/71 in order to be compared on the same x axis. Note
+                    // that in JavaScript, months start at 0 for January, 1 for February etc.
+                    
+                }, 
+                {
+                    name: 'btcchina买价',
+                    // Define the data points. All series have a dummy year
+                    // of 1970/71 in order to be compared on the same x axis. Note
+                    // that in JavaScript, months start at 0 for January, 1 for February etc.
+                    
+                }, 
+                {
+                    name: 'bitfinex买价',
+                    // Define the data points. All series have a dummy year
+                    // of 1970/71 in order to be compared on the same x axis. Note
+                    // that in JavaScript, months start at 0 for January, 1 for February etc.
+                    
+                }, 
+
+
+                ]
+            });
+            
+            var chart_ltc = new Highcharts.Chart({
+                chart: {
+                    type: 'line',
+                    renderTo: 'mychart_ltc'
+                },
+                title: {
+                    text: 'ltc价格变动情况'
+                },
+                subtitle: {
+                    text: 'test'
+                },
+                xAxis: {
+                    type: 'datetime',
+                    title: {
+                        text: '时间轴'
+                    }
+                },
+                yAxis: {
+                    title: {
+                        text: '价格 (美元)'
+                    },
+                    
+                },
+                tooltip: {
+                    headerFormat: '<b>{series.name}</b><br>',
+
+                    pointFormat: '{point.x:%Y-%m-%e %H:%M : %S}: {point.y} 美元 <br>{point.extra}'
+                },
+
+                series: [{
+                    name: 'okcoin_ltc买价',
+                    // Define the data points. All series have a dummy year
+                    // of 1970/71 in order to be compared on the same x axis. Note
+                    // that in JavaScript, months start at 0 for January, 1 for February etc.
+                    
+                }, 
+                {
+                    name: 'huobi_ltc买价',
+                    // Define the data points. All series have a dummy year
+                    // of 1970/71 in order to be compared on the same x axis. Note
+                    // that in JavaScript, months start at 0 for January, 1 for February etc.
+                    
+                }, 
+                {
+                    name: 'btcchina_ltc买价',
+                    // Define the data points. All series have a dummy year
+                    // of 1970/71 in order to be compared on the same x axis. Note
+                    // that in JavaScript, months start at 0 for January, 1 for February etc.
+                    
+                }, 
+                {
+                    name: 'bitfinex_ltc买价',
+                    // Define the data points. All series have a dummy year
+                    // of 1970/71 in order to be compared on the same x axis. Note
+                    // that in JavaScript, months start at 0 for January, 1 for February etc.
+                    
+                }, 
+
+
+                ]
+            });
+            
+
+
+            function getForm(){  
+
+                var mydata0=[];
+                var mydata1=[];
+                var mydata2=[];
+                var mydata3=[];
+                var mydata4=[];
+                var mydata5=[];
+                var mydata6=[];
+                var mydata7=[];
+                $.ajax({  
+                    url: "{% url 'getprice' %}",
+                    dataType:"json", 
+                    async:false,
+                    success:function(point){
+                  var obj=eval(point);
+
+                  for (var i=0; i<obj[0].length; i++){
+            
+                    mydata0.push({x:Date.parse(obj[0][i].created),y:parseFloat(obj[0][i].okcoin_buyprice),extra:obj[0][i].diff});                 
+                  };
+
+
+                  for (var i=0; i<obj[1].length; i++){
+                    mydata1.push({x:Date.parse(obj[1][i].created),y:parseFloat(obj[1][i].huobi_buyprice),extra:obj[1][i].diff});
+                  };
+
+                  for (var i=0; i<obj[2].length; i++){
+                   mydata2.push({x:Date.parse(obj[2][i].created),y:parseFloat(obj[2][i].btcchina_buyprice),extra:obj[2][i].diff});
+                  };
+
+                  for (var i=0; i<obj[3].length; i++){
+                   mydata3.push({x:Date.parse(obj[3][i].created),y:parseFloat(obj[3][i].bitfinex_buyprice),extra:obj[3][i].diff});
+                  };
+                  for (var i=0; i<obj[4].length; i++){
+                   mydata4.push({x:Date.parse(obj[4][i].created),y:parseFloat(obj[4][i].okcoin_buyprice_ltc),extra:obj[4][i].diff});
+                  };
+                  for (var i=0; i<obj[5].length; i++){
+                   mydata5.push({x:Date.parse(obj[5][i].created),y:parseFloat(obj[5][i].huobi_buyprice_ltc),extra:obj[5][i].diff});
+                  };
+                  for (var i=0; i<obj[6].length; i++){
+                   mydata6.push({x:Date.parse(obj[6][i].created),y:parseFloat(obj[6][i].btcchina_buyprice_ltc),extra:obj[6][i].diff});
+                  };
+                  for (var i=0; i<obj[7].length; i++){
+                   mydata7.push({x:Date.parse(obj[7][i].created),y:parseFloat(obj[7][i].bitfinex_buyprice_ltc),extra:obj[7][i].diff});
+                  };
+
+                },  
+                    error: function(){alert('error!')},  
+                });
+
+                // chart.series[0].setData(mydata0);
+                // chart.series[1].setData(mydata1);
+                // chart.series[2].setData(mydata2);
+                // chart.series[3].setData(mydata3);
+                // chart_ltc.series[0].setData(mydata4);
+                // chart_ltc.series[1].setData(mydata5);
+                // chart_ltc.series[2].setData(mydata6);
+                // chart_ltc.series[3].setData(mydata7);
+                chart.series[0].setData(mydata0);
+                chart.series[1].setData(mydata1);
+                chart.series[2].setData(mydata2);
+                chart.series[3].setData(mydata3);
+
+                chart_ltc.series[0].setData(mydata4);
+                chart_ltc.series[1].setData(mydata5);
+                chart_ltc.series[2].setData(mydata6);
+                chart_ltc.series[3].setData(mydata7);
+            }  
+      
+            getForm();
+            $(document).ready(function() {  
+                //每隔3秒自动调用方法，实现图表的实时更新  
+                window.setInterval(getForm,3000);   
+                  
+            });  
+
+
+
+
+
+        });
+     </script>
+    
+
+  </body>
+</html>

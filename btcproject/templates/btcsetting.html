@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Bootstrap, from Twitter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+
+    <link href="http://cdn.bootcss.com/bootstrap/2.0.4/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://cdn.bootcss.com/bootstrap/2.0.4/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <script src="http://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+     <script src="http://cdn.bootcss.com/bootstrap/2.0.4/js/bootstrap.min.js"></script>
+    
+
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+      .sidebar-nav {
+        padding: 9px 0;
+      }
+
+      @media (max-width: 980px) {
+        /* Enable use of floated navbar text */
+        .navbar-text.pull-right {
+          float: none;
+          padding-left: 5px;
+          padding-right: 5px;
+        }
+      }
+    </style>
+
+   
+       
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../assets/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    
+  </head>
+
+  <body>
+   
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="#">BTC</a>
+          <div class="nav-collapse collapse">            
+            <p class="navbar-text pull-right">
+              用户名 <a href="#" class="navbar-link">{{ request.user.username }}</a>
+            </p>
+            <ul class="nav">
+              <li class="active"><a href="#">Home</a></li>
+              <li><a href="{% url 'signout' %}">Signout</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span3">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class="nav-header">Sidebar</li>
+              <li><a href="{% url 'signin' %}">Signin</a></li>
+              <li ><a href="{% url 'ltcsetting' %}">LTC利差</a></li>
+              <li class="active"><a href="{% url 'btcsetting' %}">BTC利差</a></li>
+              <li ><a href="{% url 'setting' %}">API及汇率设置</a></li>
+              <li><a href="{% url 'show' %}">Show</a></li>
+              <li><a href="{% url 'showmacd' %}">ShowMacd</a></li>
+              <li><a href="{% url 'trade' %}">Trade</a></li>
+              <li><a href="{% url 'traderecode' %}">btc交易记录</a></li>
+              <li><a href="{% url 'traderecodeltc' %}">ltc交易记录</a></li>
+            </ul>
+          </div><!--/.well -->
+        </div><!--/span-->
+        <div class="span9 well">
+            <h1>BTC的利差设置</h1>
+            <br />
+            <form class="form-horizontal" action="" method="POST" role="form">
+            {% csrf_token %}
+             <div class="form-group">
+                <div class="col-md-4">
+                  okCoin2bitfinex<input type="text" class="form_control" placeholder="okCoin2bitfinex" name="okCoin2bitfinex" value="{{ request.user.userprofile.okCoin2bitfinex }}">
+                  bitfinex2okCoin<input type="text" class="form_control" placeholder="bitfinex2okCoin" name="bitfinex2okCoin" value="{{ request.user.userprofile.bitfinex2okCoin }}">
+                </div>
+                <div class="col-md-4">
+                  okCoin2huobi<input type="text" class="form_control" placeholder="okCoin2huobi" name="okCoin2huobi" value="{{ request.user.userprofile.okCoin2huobi }}">
+                  huobi2okCoin<input type="text" class="form_control" placeholder="huobi2okCoin" name="huobi2okCoin" value="{{ request.user.userprofile.huobi2okCoin }}">
+                </div>
+                <div class="col-md-4">
+                  okCoin2btcchina<input type="text" class="form_control" placeholder="okCoin2btcchina" name="okCoin2btcchina" value="{{ request.user.userprofile.okCoin2btcchina }}">
+                  btcchina2okCoin<input type="text" class="form_control" placeholder="btcchina2okCoin" name="btcchina2okCoin" value="{{ request.user.userprofile.btcchina2okCoin }}">
+                </div>
+                <div class="col-md-4">
+                  huobi2btcchina<input type="text" class="form_control" placeholder="huobi2btcchina" name="huobi2btcchina" value="{{ request.user.userprofile.huobi2btcchina }}">
+                  btcchina2huobi<input type="text" class="form_control" placeholder="btcchina2huobi" name="btcchina2huobi" value="{{ request.user.userprofile.btcchina2huobi }}">
+                </div>
+                <div class="col-md-4">
+                  huobi2bitfinex<input type="text" class="form_control" placeholder="huobi2bitfinex" name="huobi2bitfinex" value="{{ request.user.userprofile.huobi2bitfinex }}">
+                  bitfinex2huobi<input type="text" class="form_control" placeholder="bitfinex2huobi" name="bitfinex2huobi" value="{{ request.user.userprofile.bitfinex2huobi }}">
+                </div>
+                <div class="col-md-4">
+                  bitfinex2btcchina<input type="text" class="form_control" placeholder="bitfinex2btcchina" name="bitfinex2btcchina" value="{{ request.user.userprofile.bitfinex2btcchina }}">
+                  btcchina2bitfinex<input type="text" class="form_control" placeholder="btcchina2bitfinex" name="btcchina2bitfinex" value="{{ request.user.userprofile.btcchina2bitfinex }}">
+                </div>
+             </div>
+             <br />
+             <div class="control-group">
+                <button class="btn btn-primary" type="submit">更改设置</button>
+             </div>
+          </form>
+          
+        </div>
+
+
+    </div><!--/.fluid-container-->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+   
+    
+
+  </body>
+</html>

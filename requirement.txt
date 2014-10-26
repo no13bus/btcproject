@@ -1,0 +1,11 @@
+celery
+gunicorn
+gevent
+django==1.6.5
+django-celery
+south
+requests
+tornado==3.2
+flower
+redis
+mailer
