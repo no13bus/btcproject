@@ -24,3 +24,7 @@
 - `pip install redis`
 - `pip install mailer`
 当然你也可以使用 pip install -r requirement.txt来将python库一起安装
+
+## 运行情况截图
+
+![image](https://raw.githubusercontent.com/no13bus/btcproject/master/实时抓取价格.png)
